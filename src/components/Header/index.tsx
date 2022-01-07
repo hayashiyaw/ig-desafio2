@@ -4,10 +4,10 @@ import { Container } from './styles';
 import Logo from '../../assets/logo.svg';
 
 interface HeaderProps{
-  onOpenModal: () => void;
+  openModal: () => void;
 }
 
-export function Header({ onOpenModal } : HeaderProps){
+export function Header({ openModal } : HeaderProps){
   return(
       <Container>
         <header>
@@ -16,7 +16,7 @@ export function Header({ onOpenModal } : HeaderProps){
             <div>
               <button
                 type="button"
-                onClick={ onOpenModal }
+                onClick={ openModal }
               >
                 <div className="text">Novo Prato</div>
                 <div className="icon">

@@ -1,17 +1,24 @@
-import { useEffect, useRef, useState,useCallback} from 'react';
+import React, {
+  useEffect,
+  useRef,
+  useState,
+  useCallback,
+} from 'react';
+import { IconType } from 'react-icons';
+
 import { useField } from '@unform/core';
+
 import { Container } from './styles';
 
-interface InputProps{
+interface InputProps {
   name: string;
-  icon: {
-    size: number;
-    icon: any;
-  }
+  icon?: IconType
 }
 
-export function Input({ name, icon: Icon }: InputProps, {...rest} ){
-  const inputRef = useRef(null);
+export const Input = (
+  { name, icon: Icon, ...rest }: InputProps & React.InputHTMLAttributes<HTMLInputElement>
+) => {
+  const inputRef = useRef<HTMLInputElement>(null);
 
   const [isFocused, setIsFocused] = useState(false);
   const [isFilled, setIsFilled] = useState(false);
@@ -25,7 +32,7 @@ export function Input({ name, icon: Icon }: InputProps, {...rest} ){
   const handleInputBlur = useCallback(() => {
     setIsFocused(false);
 
-    setIsFilled(!!inputRef.current);
+    setIsFilled(!!inputRef.current?.value);
   }, []);
 
   useEffect(() => {
@@ -38,7 +45,7 @@ export function Input({ name, icon: Icon }: InputProps, {...rest} ){
 
   return (
     <Container isFilled={isFilled} isFocused={isFocused}>
-      {/* {Icon && <Icon size={20} />} */}
+      {Icon && <Icon size={20} />}
 
       <input
         onFocus={handleInputFocus}
@@ -50,4 +57,3 @@ export function Input({ name, icon: Icon }: InputProps, {...rest} ){
     </Container>
   );
 };
-
